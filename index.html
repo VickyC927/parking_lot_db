@@ -1,94 +1,158 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>停車場資料庫系統設計</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-            line-height: 1.6;
-        }
-        header {
-            background-color: #5683A5;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 1.8em;
-        }
-        section {
-            background: white;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 900px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #5683A5;
-            margin-top: 0;
-        }
-        iframe {
-            display: block;
-            margin: 0 auto;
-            width: 100%;
-            height: 600px;
-            border: none; /* 無外框 */
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>停車場資料庫系統設計</title>
+  <style>
+    :root{
+      --primary:#5683A5;
+      --text:#2b2b2b;
+      --bg:#f4f6f8;
+      --card:#ffffff;
+    }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font:16px/1.7 system-ui, -apple-system, "Noto Sans TC", "Segoe UI", Arial, sans-serif;
+    }
+
+    /* 頂部列 */
+    header{
+      position:sticky; top:0; z-index:10;
+      background:var(--primary); color:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,.12);
+    }
+    .bar{
+      max-width:1100px; margin:0 auto; padding:14px 20px;
+      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    }
+    .brand{ font-size:1.2rem; font-weight:700; letter-spacing:.5px; }
+
+    /* 導覽／按鈕 */
+    .btn{
+      appearance:none; border:1px solid rgba(255,255,255,.7);
+      color:#fff; background:transparent; padding:8px 14px;
+      border-radius:999px; cursor:pointer; font-weight:600;
+      transition:.2s ease; text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+    }
+    .btn:hover{ background:rgba(255,255,255,.12); transform:translateY(-1px); }
+    .btn.secondary{
+      border-color:transparent; background:#fff; color:var(--primary);
+    }
+    .btn.secondary:hover{ filter:brightness(.96); }
+
+    /* 主內容 */
+    main{ max-width:1100px; margin:26px auto; padding:0 20px 80px; }
+    section{
+      background:var(--card); border-radius:14px; padding:24px; margin:18px 0;
+      box-shadow:0 4px 18px rgba(0,0,0,.06);
+      opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease;
+    }
+    section.show{ opacity:1; transform:translateY(0); }
+    h2{ color:var(--primary); margin:.2em 0 .6em; }
+
+    /* RWD PDF 內嵌（無外框） */
+    .embed{
+      position:relative; width:100%; aspect-ratio: 16 / 9; border-radius:12px;
+      overflow:hidden; background:#eef2f6;
+    }
+    .embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+    /* 小提示 */
+    .hint{ color:#6a7680; font-size:.9rem; margin-top:10px; }
+
+    /* 回到頂部 */
+    .back-top{
+      position:fixed; right:16px; bottom:16px; z-index:20;
+      border:none; border-radius:999px; padding:10px 12px;
+      background:var(--primary); color:#fff; cursor:pointer;
+      box-shadow:0 6px 20px rgba(0,0,0,.18); display:none; font-weight:700;
+    }
+    .back-top.show{ display:block; }
+  </style>
 </head>
 <body>
-    <header>停車場資料庫系統設計</header>
+  <header>
+    <div class="bar">
+      <div class="brand">停車場資料庫系統設計</div>
+      <!-- 回首頁：優先使用上一頁，若無則導到你的首頁網址（請換成你的網址） -->
+      <a class="btn" href="/" onclick="if(history.length>1){history.back(); return false;}">
+        ← 回首頁 / 作品集
+      </a>
+      <!-- 直接跳到 PDF 區 -->
+      <a class="btn secondary" href="#pdf">查看簡報</a>
+    </div>
+  </header>
 
-    <!-- PDF 區塊 -->
-    <section>
-        <h2>專案簡報</h2>
-        <iframe src="https://913002-my.sharepoint.com/personal/chiang_913002_onmicrosoft_com/_layouts/15/embed.aspx?UniqueId=c6ca166b-ac42-438c-86b5-578b06aae7b7" allowfullscreen></iframe>
+  <main>
+    <!-- PDF -->
+    <section id="pdf">
+      <h2>專案簡報</h2>
+      <div class="embed">
+        <iframe
+          src="https://913002-my.sharepoint.com/personal/chiang_913002_onmicrosoft_com/_layouts/15/embed.aspx?UniqueId=c6ca166b-ac42-438c-86b5-578b06aae7b7"
+          title="第六組_停車場系統 PDF" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p class="hint">若無法載入，請確認分享權限為「擁有連結者可檢視」。</p>
     </section>
 
     <!-- 系統背景與目標 -->
     <section>
-        <h2>系統背景與目標</h2>
-        <p><strong>問題：</strong><br>
-        總是浪費時間找不到車位？<br>
-        車輛來來去去，不易管理？</p>
-        <p><strong>目的：</strong><br>
-        紀錄停車經歷<br>
-        分類管理車位<br>
-        支援清算、管理、查詢</p>
+      <h2>系統背景與目標</h2>
+      <p><strong>問題：</strong><br>
+        總是浪費時間找不到車位？車輛來來去去，不易管理？</p>
+      <p><strong>目的：</strong><br>
+        紀錄停車經歷｜分類管理車位｜支援清算、管理、查詢</p>
     </section>
 
     <!-- 使用者角色與需求 -->
     <section>
-        <h2>使用者角色與需求</h2>
-        <p><strong>客戶：</strong> 查詢空位、開立發票 / 建立交易紀錄</p>
-        <p><strong>管理員：</strong> 顯示空位狀況、統算營收</p>
+      <h2>使用者角色與需求</h2>
+      <p><strong>客戶：</strong> 查詢空位、開立發票／建立交易紀錄</p>
+      <p><strong>管理員：</strong> 顯示空位狀況、統算營收</p>
     </section>
 
     <!-- 實務應用舉例 -->
     <section>
-        <h2>實務應用舉例</h2>
-        <ul>
-            <li>管理員可即時查看車位使用情況</li>
-            <li>系統計算今日收入</li>
-            <li>建立客戶交易紀錄並開立發票</li>
-        </ul>
+      <h2>實務應用舉例</h2>
+      <ul>
+        <li>管理員可即時查看車位使用情況</li>
+        <li>系統計算今日收入</li>
+        <li>建立客戶交易紀錄並開立發票</li>
+      </ul>
     </section>
 
     <!-- 進階功能 -->
     <section>
-        <h2>進階功能：智慧配位系統</h2>
-        <p>車輛進入 ➜ 辨識車種 ➜ 查找符合條件的空位 ➜ 自動指派車位 ➜ 顯示指引或燈號通知 ➜ 顧客前往停放</p>
+      <h2>進階功能：智慧配位系統</h2>
+      <p>車輛進入 → 辨識車種 → 查找符合條件的空位 → 自動指派車位 → 顯示指引或燈號通知 → 顧客前往停放</p>
     </section>
 
-    <!-- 資料庫與智慧城市 -->
+    <!-- 智慧城市訴求 -->
     <section>
-        <h2>智慧停車：資料庫驅動的管理與服務升級</h2>
-        <p>資料庫可以有效支援停車場的管理與顧客服務，也是建立智慧城市系統的重要基礎設施計畫。</p>
+      <h2>智慧停車：資料庫驅動的管理與服務升級</h2>
+      <p>資料庫可以有效支援停車場的管理與顧客服務，也是建立智慧城市系統的重要基礎設施計畫。</p>
     </section>
+  </main>
+
+  <!-- 回到頂部 -->
+  <button class="back-top" aria-label="回到頂部" title="回到頂部">▲</button>
+
+  <script>
+    // 進場動畫
+    const io = new IntersectionObserver(es=>{
+      es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+    }, {threshold:.15});
+    document.querySelectorAll('section').forEach(s=>io.observe(s));
+
+    // 回頂
+    const backBtn = document.querySelector('.back-top');
+    window.addEventListener('scroll', ()=>{
+      if(window.scrollY > 500) backBtn.classList.add('show');
+      else backBtn.classList.remove('show');
+    });
+    backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+  </script>
 </body>
 </html>
