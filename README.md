@@ -48,3 +48,13 @@
 SELECT SUM(費用) AS 今日營收
 FROM 停車紀錄
 WHERE DATE(離場時間) = CURDATE();
+
+-- 查詢特定車牌的停車紀錄
+SELECT * FROM 停車紀錄
+WHERE 車牌號碼 = 'ABC-1234';
+
+-- 計算每小時的停車數量
+SELECT HOUR(進場時間) AS 小時, COUNT(*) AS 車輛數
+FROM 停車紀錄
+GROUP BY HOUR(進場時間)
+ORDER BY 小時;
