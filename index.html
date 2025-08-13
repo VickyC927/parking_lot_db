@@ -3,35 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>停車場系統概念設計</title>
+    <title>停車場資料庫系統設計</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
         }
         header {
-            background-color: #5683A5; /* 主色 */
+            background-color: #5683A5;
             color: white;
-            padding: 15px;
             text-align: center;
-            font-size: 1.5em;
+            padding: 20px;
+            font-size: 1.8em;
+        }
+        section {
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 900px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #5683A5;
+            margin-top: 0;
         }
         iframe {
             display: block;
-            margin: 20px auto;
-            border: 3px solid #5683A5;
-            border-radius: 8px;
+            margin: 0 auto;
+            width: 100%;
+            height: 600px;
+            border: none; /* 無外框 */
         }
     </style>
 </head>
 <body>
-    <header>停車場系統概念設計</header>
+    <header>停車場資料庫系統設計</header>
 
-    <iframe src="https://913002-my.sharepoint.com/personal/chiang_913002_onmicrosoft_com/_layouts/15/embed.aspx?UniqueId=c6ca166b-ac42-438c-86b5-578b06aae7b7" 
-        width="800" height="500" frameborder="0" scrolling="no" allowfullscreen 
-        title="第六組_停車場系統">
-    </iframe>
+    <!-- PDF 區塊 -->
+    <section>
+        <h2>專案簡報</h2>
+        <iframe src="https://913002-my.sharepoint.com/personal/chiang_913002_onmicrosoft_com/_layouts/15/embed.aspx?UniqueId=c6ca166b-ac42-438c-86b5-578b06aae7b7" allowfullscreen></iframe>
+    </section>
+
+    <!-- 系統背景與目標 -->
+    <section>
+        <h2>系統背景與目標</h2>
+        <p><strong>問題：</strong><br>
+        總是浪費時間找不到車位？<br>
+        車輛來來去去，不易管理？</p>
+        <p><strong>目的：</strong><br>
+        紀錄停車經歷<br>
+        分類管理車位<br>
+        支援清算、管理、查詢</p>
+    </section>
+
+    <!-- 使用者角色與需求 -->
+    <section>
+        <h2>使用者角色與需求</h2>
+        <p><strong>客戶：</strong> 查詢空位、開立發票 / 建立交易紀錄</p>
+        <p><strong>管理員：</strong> 顯示空位狀況、統算營收</p>
+    </section>
+
+    <!-- 實務應用舉例 -->
+    <section>
+        <h2>實務應用舉例</h2>
+        <ul>
+            <li>管理員可即時查看車位使用情況</li>
+            <li>系統計算今日收入</li>
+            <li>建立客戶交易紀錄並開立發票</li>
+        </ul>
+    </section>
+
+    <!-- 進階功能 -->
+    <section>
+        <h2>進階功能：智慧配位系統</h2>
+        <p>車輛進入 ➜ 辨識車種 ➜ 查找符合條件的空位 ➜ 自動指派車位 ➜ 顯示指引或燈號通知 ➜ 顧客前往停放</p>
+    </section>
+
+    <!-- 資料庫與智慧城市 -->
+    <section>
+        <h2>智慧停車：資料庫驅動的管理與服務升級</h2>
+        <p>資料庫可以有效支援停車場的管理與顧客服務，也是建立智慧城市系統的重要基礎設施計畫。</p>
+    </section>
 </body>
 </html>
